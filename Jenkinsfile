@@ -3,21 +3,33 @@ pipeline {
     environment{
         NEW_VERSION='1.3.0'
     }
+    tools{
+        maven:'Maven'
+    }
     stages {
         stage('build') {
-            steps {
-                echo 'building application...'
-                echo "building ${NEW_VERSION}"
-            }
+            steps{
+                script{
+                    sh 'mvn package'
+                }  
+            }  
         }
-        stage('test') {
+        
+        stage('build image') {
             when{
                 expression {
                     BRANCH_NAME=='master'
                 }
             }
             steps {
-                echo 'testing application...'
+                
+                script{
+                    echo 'building the docker image...'
+                    withCredentials([usernamePassword(credentialsId:'docker-hub-repo',passwordVariable:'PASS',usernameVariable:'USER')]){
+                        sh 'docker build -t aminerhioui/demo-app:jma-2.0 .'
+                        sh '
+                    }
+                }
             }
         }
         stage('deploy') {
