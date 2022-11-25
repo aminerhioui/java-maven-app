@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     environment{
@@ -7,6 +8,13 @@ pipeline {
         maven 'maven-3.8.6'
     }
     stages {
+        stage('init'){
+            steps{
+                script{
+                    gv=load "script.groovy"
+                }
+            }
+        }
         stage('build') {
             steps{
                 script{
@@ -31,7 +39,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                echo 'deploying application...'
+                gv.deployApp()
             }
         }
     }
