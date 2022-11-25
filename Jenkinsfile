@@ -4,7 +4,7 @@ pipeline {
         NEW_VERSION='1.3.0'
     }
     tools{
-        maven 'Maven'
+        maven 'maven-3.8.6'
     }
     stages {
         stage('build') {
