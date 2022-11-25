@@ -15,7 +15,19 @@ pipeline {
                 }
             }
         }
+        stage('test') {
+            steps{
+                script{
+                    echo 'testing the application....'
+                }  
+            }  
+        }
         stage('build') {
+            when{
+                expression{
+                    BRANCH_NAME == 'master'
+                }
+            }
             steps{
                 script{
                     sh 'mvn package'
