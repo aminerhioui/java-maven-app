@@ -11,7 +11,7 @@ pipeline {
         stage('init'){
             steps{
                 script{
-                    gv=echo 'building the docker image...'
+                    gv='building the docker image...'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                gv
+                echo gv
             }
         }
     }
