@@ -11,7 +11,7 @@ pipeline {
         stage('init'){
             steps{
                 script{
-                    gv='building the docker image...'
+                    gv=load "script.groovy"
                 }
             }
         }
@@ -39,7 +39,9 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                echo gv
+                script{
+                    gv.deployApp()
+                }
             }
         }
     }
